@@ -1,0 +1,47 @@
+# Sample configuration file for traveling-salesbot
+
+# Data configuration
+data:
+  dataset_path: "/path/to/dataset"
+  split: "train"  # or "test", "validation"
+
+# Server configuration for OpenAI-compatible API
+server:
+  base_url: "http://localhost"
+  ports: 8000
+
+# Generation configuration for the language model
+generation:
+  model: "gpt-3.5-turbo"
+  temperature: 0.7
+  max_tokens: 1500
+  top_p: 1.0
+
+# Tool configuration
+tool:
+  schema_path: "schemas/tool_schemas.yaml"
+  handler: QwenGame # handles tool-specific patterns
+
+# Template configuration
+template:
+  dir: "templates"  # Directory containing Jinja2 templates
+  system_prompt_path: "system_prompt.j2"
+  user_prompt_path: "user_prompt.j2"
+  core_loop:
+    - call_type: "think"
+      additional_args: {}
+      next_template_path: "thinking_response.j2"
+    - call_type: "action"
+      additional_args:
+        tools_avail: ["submit_solution", "get_graph_info"]
+        retry_limit: 32
+      next_template_path: "action_response.j2"
+
+# Verifier configuration (optional)
+verifier:
+  # type: "custom"  # Options: "tool", "custom", "none"
+  # module: "external_tools"
+  # function: "check_solution"
+  # For tool type verifier:
+  type: tool
+  tool_name: "verify_solution"

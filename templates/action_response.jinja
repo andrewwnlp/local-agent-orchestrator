@@ -1,0 +1,13 @@
+You observe the following after your actions:
+
+{% if outcome is iterable %}
+{% for output in outcome %}
+ACTION:
+{{ output.function }}
+
+OBSERVATION: 
+{{ output.output }}
+
+{% endfor %}
+{% endif %}
+Reflect on your actions and their outcomes. Think logically and thoroughly. 

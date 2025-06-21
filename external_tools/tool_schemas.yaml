@@ -1,0 +1,72 @@
+- type: function
+  function:
+    name: add
+    description: returns the sum of two input values `a` and `b`
+    parameters:
+      type: object
+      properties:
+        a:
+          type: number
+          description: augend
+        b:
+          type: number
+          description: addend
+- type: function
+  function:
+    name: subtract
+    description: returns the difference of two input values, where `b` is subtracted from `a`
+    parameters:
+      type: object
+      properties:
+        a:
+          type: number
+          description: minuend
+        b:
+          type: number
+          description: subtrahend
+- type: function
+  function:
+    name: multiply
+    description: returns the product of two input values `a` and `b`
+    parameters:
+      type: object
+      properties:
+        a:
+          type: number
+          description: factor
+        b:
+          type: number
+          description: factor
+- type: function
+  function:
+    name: divide
+    description: returns the division of two input values, `a` is divided by `b`
+    parameters:
+      type: object
+      properties:
+        a:
+          type: number
+          description: dividend
+        b:
+          type: number
+          description: divisor
+- type: function
+  function:
+    name: verify
+    description: checks if the agent's math problem submission is correct
+    parameters:
+      type: object
+      properties:
+        submission:
+          type: number
+          description: numerical answer to the math problem
+- type: function
+  function:
+    name: submit_solution
+    description: submits answer to evaluation
+    parameters:
+      type: object
+      properties:
+        submission:
+          type: number
+          description: numerical answer to the math problem

@@ -1,0 +1,54 @@
+# Sample configuration file for traveling-salesbot
+
+# Data configuration
+data:
+  dataset_path: openai/gsm8k
+  subset: main
+  split: test  # or "test", "validation"
+
+# Server configuration for OpenAI-compatible API
+server:
+  base_url: http://<your url here>
+  ports: 8088
+
+# Generation configuration for the language model
+generation:
+  # model: "Qwen/Qwen2.5-72B-Instruct"
+  model: meta-llama/Llama-3.3-70B-Instruct
+  temperature: 0.6
+  top_p: .95
+
+# Tool configuration
+tool:
+  schema_path: "external_tools/tool_schemas.yaml"
+  # handler: QwenGame
+  handler: LlamaGame
+
+# Template configuration
+template:
+  dir: "templates"  # Directory containing Jinja2 templates
+  system_prompt_path: "system_prompt.jinja"
+  user_prompt_path: "user_prompt.jinja"
+  core_loop:
+    - call_type: "think"
+      additional_args: {}
+      next_template_path: "thinking_response.jinja"
+    - call_type: "action"
+      additional_args:
+        tools_avail:
+          - add
+          - subtract
+          - multiply
+          - divide
+          - submit_solution # this is purely logical, no actual tool needed here
+        retry_limit: 1
+      next_template_path: "action_response.jinja"
+
+# Verifier configuration (optional)
+verifier:
+  # type: "custom"  # Options: "tool", "custom", "none"
+  # module: "external_tools"
+  # function: "check_solution"
+  # For tool type verifier:
+  type: tool
+  tool_name: "verify"
